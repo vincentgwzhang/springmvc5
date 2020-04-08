@@ -14,8 +14,12 @@
     <base href="<%=basePath%>" />
 </head>
 <body>
+<a href="<%=basePath%>">Back to home</a><br /><br /><br />
+
 <ul>
-    <li><a href="home/">HomeComponent</a></li>
+    <li><a href="home/default">default</a></li>
+    <li><a href="home/link">link</a></li>
+    <li><a href="home/parametertest?username=vincent&age=37">Vincent</a></li>
 </ul>
 
 </body>
