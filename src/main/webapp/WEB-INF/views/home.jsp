@@ -22,6 +22,8 @@
     <li><a href="home/parametertest?username=vincent&age=37">Vincent</a></li>
     <li><a href="home/requestMapping/!@$&*(()_+/regx">Regex Mapping</a></li>
     <li><a href="home/path/vincent/age/37">Test path variable</a></li>
+    <li><a href="home/headertest">Header test</a></li>
+    <li><a href="home/cookieValue">Cookie test</a></li>
 </ul>
 
 </body>

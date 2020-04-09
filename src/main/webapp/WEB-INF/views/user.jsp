@@ -14,11 +14,17 @@
     <base href="<%=basePath%>" />
 </head>
 <body>
-<ul>
-    <li><a href="home/">HomeComponent</a></li>
-    <li><a href="rest/">RestComponent</a></li>
-    <li><a href="user/">UserController</a></li>
-</ul>
+<a href="<%=basePath%>">Back to home</a><br /><br /><br />
+
+<form action="user/post" method="post">
+    username: <input type="text" name="username" /><br />
+    password: <input type="text" name="password" /><br />
+    email: <input type="text" name="email" /><br />
+    age: <input type="text" name="age" /><br />
+    city: <input type="text" name="address.city" /><br />
+    province: <input type="text" name="address.province" /><br />
+    <input type="submit" value="Test Put Method" />
+</form>
 
 </body>
 </html>

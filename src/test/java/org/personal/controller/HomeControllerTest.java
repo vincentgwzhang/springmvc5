@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -71,6 +72,11 @@ public class HomeControllerTest
                         .param("username", "vincent")
                         .param("age", "37");
         this.mockMvc.perform(requestBuilder).andExpect(view().name("home"));
+
+        MockHttpServletRequestBuilder requestBuilder2 =
+                MockMvcRequestBuilders
+                        .get(controller_url_base + "/parametertest2");
+        this.mockMvc.perform(requestBuilder2).andExpect(view().name("home"));
     }
 
     @Test
@@ -95,5 +101,22 @@ public class HomeControllerTest
         final String age = "37";
         final String requestPath = controller_url_base + "/path/{username}/age/{age}";
         this.mockMvc.perform(get(requestPath, username, age)).andExpect(view().name("home"));
+    }
+
+    @Test
+    public void homeController_HeaderTesting() throws Exception
+    {
+        final String requestPath = controller_url_base + "/headertest";
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(requestPath).header("accept-language", "English");
+        this.mockMvc.perform(requestBuilder).andExpect(view().name("home"));
+    }
+
+    @Test
+    public void homeController_CookieTesting() throws Exception
+    {
+        final String requestPath = controller_url_base + "/cookieValue";
+        final Cookie cookie = new Cookie("JSESSIONID","Test_JSESSIONID_value");
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(requestPath).cookie(cookie);
+        this.mockMvc.perform(requestBuilder).andExpect(view().name("home"));
     }
 }
