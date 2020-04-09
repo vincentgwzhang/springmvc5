@@ -14,14 +14,15 @@
     <base href="<%=basePath%>" />
 </head>
 <body>
+<a href="<%=basePath%>">Back to home</a><br /><br /><br />
+
 <ul>
-    <li><a href="home/">HomeComponent</a></li>
-    <li><a href="rest/">RestComponent</a></li>
-    <li><a href="user/">UserController</a></li>
-    <li><a href="model/">ModelController</a></li>
-    <li><a href="sessionAttribute/">SessionAttributeController</a></li>
-    <li><a href="modelAttribute/">ModelAttributeController</a></li>
+    <li><a href="model/modelAndView">modelAndView</a></li>
+    <li><a href="model/map">map</a></li>
+    <li><a href="model/modelMap">modelMap</a></li>
+    <li><a href="model/model">model</a></li>
 </ul>
 
+${requestScope.time}
 </body>
 </html>

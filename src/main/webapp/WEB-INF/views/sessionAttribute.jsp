@@ -14,14 +14,15 @@
     <base href="<%=basePath%>" />
 </head>
 <body>
+<a href="<%=basePath%>">Back to home</a><br /><br /><br />
+
 <ul>
-    <li><a href="home/">HomeComponent</a></li>
-    <li><a href="rest/">RestComponent</a></li>
-    <li><a href="user/">UserController</a></li>
-    <li><a href="model/">ModelController</a></li>
-    <li><a href="sessionAttribute/">SessionAttributeController</a></li>
-    <li><a href="modelAttribute/">ModelAttributeController</a></li>
+    <li><a href="sessionAttribute/case1">case1</a></li>
 </ul>
+
+Request Scope: ${requestScope.user}<br />
+Session Scope: ${sessionScope.user}<br />
+Session School: ${sessionScope.school}<br />
 
 </body>
 </html>

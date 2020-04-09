@@ -14,14 +14,15 @@
     <base href="<%=basePath%>" />
 </head>
 <body>
-<ul>
-    <li><a href="home/">HomeComponent</a></li>
-    <li><a href="rest/">RestComponent</a></li>
-    <li><a href="user/">UserController</a></li>
-    <li><a href="model/">ModelController</a></li>
-    <li><a href="sessionAttribute/">SessionAttributeController</a></li>
-    <li><a href="modelAttribute/">ModelAttributeController</a></li>
-</ul>
+<a href="<%=basePath%>">Back to home</a><br /><br /><br />
+
+<form action="modelAttribute/post" method="post">
+    <input type="hidden" name="id" value="1">
+    username: <input type="text" name="username" value="tom" /><br />
+    email: <input type="text" name="email" value="tom@atguigu.com" /><br />
+    age: <input type="text" name="age" value="12" /><br />
+    <input type="submit" value="Test Model Attribute" />
+</form>
 
 </body>
 </html>

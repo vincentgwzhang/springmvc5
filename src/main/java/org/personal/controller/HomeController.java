@@ -1,5 +1,10 @@
 package org.personal.controller;
 
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
+import java.security.Principal;
+import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("home")
@@ -23,8 +29,13 @@ public class HomeController {
     private static final String BASE_URL = "home";
 
     @GetMapping({"", "default","link"})
-    public String defaultMethod(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+    public String defaultMethod(ModelMap model, HttpServletRequest request, HttpServletResponse response, HttpSession session,
+            Principal principal, Locale locale, Reader reader, Writer writer){
         logger.info("Home Controller access");
+        logger.info("request class = {}, response class = {}", request.getClass().getName(), response.getClass().getName());
+        logger.info("session class = {}, locale language = {}", session.getClass().getName(), locale);
+        logger.info("reader class = {}, writer class = {}", reader.getClass().getName(), writer.getClass().getName());
+
         model.addAttribute("message", "This is Java configuration case sample");
         return BASE_URL;
     }
