@@ -65,7 +65,35 @@ public class HomeControllerTest
             this.mockMvc.perform(get(viewEntry.getKey())).andExpect(view().name(viewEntry.getValue()));
         }
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(controller_url_base + "/parametertest").param("username", "vincent").param("age", "37");
+        MockHttpServletRequestBuilder requestBuilder =
+                MockMvcRequestBuilders
+                        .get(controller_url_base + "/parametertest")
+                        .param("username", "vincent")
+                        .param("age", "37");
         this.mockMvc.perform(requestBuilder).andExpect(view().name("home"));
+    }
+
+    @Test
+    public void homeController_RegexAccessTesting() throws Exception
+    {
+        Map<String, String> viewMappingMap = new HashMap<>();
+        viewMappingMap.put(controller_url_base + "/requestMapping/a/regx", "home");
+        viewMappingMap.put(controller_url_base + "/requestMapping/%/regx", "home");
+        viewMappingMap.put(controller_url_base + "/requestMapping/+-*/regx", "home");
+        viewMappingMap.put(controller_url_base + "/requestMapping/!@$&*(()_+/regx", "home");
+
+        for (Map.Entry<String, String> viewEntry : viewMappingMap.entrySet())
+        {
+            this.mockMvc.perform(get(viewEntry.getKey())).andExpect(view().name(viewEntry.getValue()));
+        }
+    }
+
+    @Test
+    public void homeController_PathVariableTesting() throws Exception
+    {
+        final String username = "a_username";
+        final String age = "37";
+        final String requestPath = controller_url_base + "/path/{username}/age/{age}";
+        this.mockMvc.perform(get(requestPath, username, age)).andExpect(view().name("home"));
     }
 }

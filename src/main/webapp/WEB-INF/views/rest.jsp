@@ -16,13 +16,10 @@
 <body>
 <a href="<%=basePath%>">Back to home</a><br /><br /><br />
 
-<ul>
-    <li><a href="home/default">default</a></li>
-    <li><a href="home/link">link</a></li>
-    <li><a href="home/parametertest?username=vincent&age=37">Vincent</a></li>
-    <li><a href="home/requestMapping/!@$&*(()_+/regx">Regex Mapping</a></li>
-    <li><a href="home/path/vincent/age/37">Test path variable</a></li>
-</ul>
+<form action="rest/postformtest" method="post">
+    <input type="hidden" name="_method" value="PUT" />
+    <input type="submit" value="Test Put Method" />
+</form>
 
 </body>
 </html>

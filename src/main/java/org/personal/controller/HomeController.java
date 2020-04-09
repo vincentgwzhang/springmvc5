@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,12 +29,22 @@ public class HomeController {
      *Without params = {"username", "age!=10"} can not claim that age != 10
      */
     @GetMapping(value = "parametertest", params = {"username", "age!=10"})
-    public String testParamsAndHeaders(ModelMap model, @RequestParam("username") String username, @RequestParam("age") int age){
+    public String testRequestParams(ModelMap model, @RequestParam("username") String username, @RequestParam("age") int age){
         logger.info("Home Controller username = {}, age = {}", username, age);
         model.addAttribute("message", "This is Java configuration case sample");
         return "home";
     }
 
+    @GetMapping("/requestMapping/*/regx")
+    public String testRequestRegexStyle() {
+        logger.info("testRequestRegexStyle access");
+        return "home";
+    }
 
+    @GetMapping("/path/{username}/age/{age}")
+    public String testPathVariable(@PathVariable String username, @PathVariable String age) {
+        logger.info("HomeController::testPathVariable username = {}, age = {}", username, age);
+        return "home";
+    }
 
 }

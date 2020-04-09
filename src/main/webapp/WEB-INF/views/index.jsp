@@ -16,6 +16,7 @@
 <body>
 <ul>
     <li><a href="home/">HomeComponent</a></li>
+    <li><a href="rest/">RestComponent</a></li>
 </ul>
 
 </body>
