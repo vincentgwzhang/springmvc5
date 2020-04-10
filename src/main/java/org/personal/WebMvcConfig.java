@@ -4,12 +4,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.TimeZone;
+import org.personal.data.employee.converters.EmployeeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
@@ -18,8 +18,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
 import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
-import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -92,6 +90,15 @@ public class WebMvcConfig implements WebMvcConfigurer
         return objectMapper;
     }
 
+    @Autowired
+    private EmployeeConverter employeeConverter;
+
+    @Override
+    public void addFormatters(FormatterRegistry registry)
+    {
+        registry.addConverter(employeeConverter);
+    }
+
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry)
     {
@@ -109,7 +116,8 @@ public class WebMvcConfig implements WebMvcConfigurer
         return resolver;
     }
 
-    private BeanNameViewResolver beanNameViewResolver() {
+    private BeanNameViewResolver beanNameViewResolver()
+    {
         return new BeanNameViewResolver();
     }
 }
