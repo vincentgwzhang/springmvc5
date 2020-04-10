@@ -14,17 +14,11 @@
     <base href="<%=basePath%>" />
 </head>
 <body>
+<a href="<%=basePath%>">Back to home</a><br /><br /><br />
+
 <ul>
-    <li><a href="home/">HomeComponent</a></li>
-    <li><a href="rest/">RestComponent</a></li>
-    <li><a href="user/">UserController</a></li>
-    <li><a href="model/">ModelController</a></li>
-    <li><a href="sessionAttribute/">SessionAttributeController</a></li>
-    <li><a href="modelAttribute/">ModelAttributeController</a></li>
-    <li><a href="view/">view</a></li>
-    <li><a href="redirect/testRedirect">RedirectController: redirect</a></li>
-    <li><a href="redirect/testForward">RedirectController: forward</a></li>
-    <li><a href="employee">EmployeeController</a></li>
+    <li><a href="employee/get">List All Employees</a></li>
+    <li><a href="employee/create">Create Employees</a></li>
 </ul>
 
 </body>
