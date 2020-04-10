@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -14,17 +15,9 @@
     <base href="<%=basePath%>" />
 </head>
 <body>
-<ul>
-    <li><a href="home/">HomeComponent</a></li>
-    <li><a href="rest/">RestComponent</a></li>
-    <li><a href="user/">UserController</a></li>
-    <li><a href="model/">ModelController</a></li>
-    <li><a href="sessionAttribute/">SessionAttributeController</a></li>
-    <li><a href="modelAttribute/">ModelAttributeController</a></li>
-    <li><a href="view/">view</a></li>
-    <li><a href="redirect/testRedirect">RedirectController: redirect</a></li>
-    <li><a href="redirect/testForward">RedirectController: forward</a></li>
-</ul>
+<a href="<%=basePath%>">Back to home</a><br /><br /><br />
 
+This is value from redirect, if has : ${requestScope.redirectObject}<br />
+This is value from forward, if has : ${requestScope.testForward}
 </body>
 </html>
