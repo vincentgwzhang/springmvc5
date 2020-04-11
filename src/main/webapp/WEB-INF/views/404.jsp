@@ -20,14 +20,7 @@
 <div class="container">
     <a href="<%=basePath%>">Back to home</a><br/><br/><br/>
 
-    <ul>
-        <li><a href="exception/internalTriggerNonJSONException">internalTriggerNonJSONException</a></li>
-        <li><a href="exception/internalTriggerNumberFormatException">internalTriggerNumberFormatException</a></li>
-        <li><a href="exception/triggerStudentNotFoundException">triggerStudentNotFoundException</a></li>
-        <li><a href="exception/triggerArrayIndexOutOfBoundsException">triggerArrayIndexOutOfBoundsException</a></li>
-        <li><a href="exception/triggerSimpleMappingExceptionResolverDefaultErrorView">triggerSimpleMappingExceptionResolverDefaultErrorView</a></li>
-        <li><a href="exception/SUPPOSE_NOT_FOUND_PAGE">Suppose no handler page, this is 404</a></li>
-    </ul>
+    This is 404 no found page
 </div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
  * #错误解决#
@@ -30,6 +31,19 @@ public class SystemExceptionHandler
     {
         logger.info("ExceptionController::handleRuntimeException, exception = {}", ex.getMessage());
         ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("ex", ex);
+        return modelAndView;
+    }
+
+    /**
+     * For all the 404 NOT Found, but please to config the
+     * org.personal.AppInitializer#createDispatcherServlet(org.springframework.web.context.WebApplicationContext)
+     */
+    @ExceptionHandler({ NoHandlerFoundException.class })
+    public ModelAndView handleNoHandlerFoundException(final NoHandlerFoundException ex)
+    {
+        logger.info("ExceptionController::handleNoHandlerFoundException, exception = {}", ex.getMessage());
+        ModelAndView modelAndView = new ModelAndView("404");
         modelAndView.addObject("ex", ex);
         return modelAndView;
     }
