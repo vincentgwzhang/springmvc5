@@ -27,6 +27,7 @@
     <li><a href="employee">EmployeeController</a></li>
     <li><a href="convert">ConverterDemoController</a></li>
     <li><a href="file">UploadDownloadController</a></li>
+    <li><a href="exception">ExceptionController</a></li>
 </ul>
 
 </body>
