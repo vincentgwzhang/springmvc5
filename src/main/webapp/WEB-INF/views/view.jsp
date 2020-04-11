@@ -9,7 +9,7 @@
 %>
 <html>
 <head>
-    <title>Spring MVC XML Config Example</title>
+    <title>Spring MVC 5 Demo</title>
     <spring:url value="/resources/js/jquery-3.3.1.min.js" var="jqueryJS" />
     <script src="${jqueryJS}"></script>
     <base href="<%=basePath%>" />
