@@ -1,6 +1,5 @@
 package org.personal.controller;
 
-import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.security.Principal;
@@ -22,15 +21,16 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("home")
-public class HomeController {
+public class HomeController
+{
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final String BASE_URL = "home";
 
-    @GetMapping({"", "default","link"})
-    public String defaultMethod(ModelMap model, HttpServletRequest request, HttpServletResponse response, HttpSession session,
-            Principal principal, Locale locale, Reader reader, Writer writer){
+    @GetMapping({ "", "default", "link" })
+    public String defaultMethod(ModelMap model, HttpServletRequest request, HttpServletResponse response, HttpSession session, Principal principal, Locale locale, Reader reader, Writer writer)
+    {
         logger.info("Home Controller access");
         logger.info("request class = {}, response class = {}", request.getClass().getName(), response.getClass().getName());
         logger.info("session class = {}, locale language = {}", session.getClass().getName(), locale);
@@ -43,43 +43,47 @@ public class HomeController {
     /**
      *Without params = {"username", "age!=10"} can not claim that age != 10
      */
-    @GetMapping(value = "parametertest", params = {"username", "age!=10"})
-    public String testRequestParams(ModelMap model, @RequestParam("username") String username, @RequestParam("age") int age){
+    @GetMapping(value = "parametertest", params = { "username", "age!=10" })
+    public String testRequestParams(ModelMap model, @RequestParam("username") String username, @RequestParam("age") int age)
+    {
         logger.info("Home Controller username = {}, age = {}", username, age);
         model.addAttribute("message", "This is Java configuration case sample");
         return BASE_URL;
     }
 
     @GetMapping(value = "parametertest2")
-    public String testRequestParams2(ModelMap model,
-            @RequestParam(value="username", required = false, defaultValue = "defaultName") String username,
-            @RequestParam(value="age", required = false, defaultValue = "0") Integer age){
+    public String testRequestParams2(ModelMap model, @RequestParam(value = "username", required = false, defaultValue = "defaultName") String username, @RequestParam(value = "age", required = false, defaultValue = "0") Integer age)
+    {
         logger.info("Home Controller username = {}, age = {}", username, age);
         model.addAttribute("message", "This is Java configuration case sample");
         return BASE_URL;
     }
 
     @GetMapping(value = "headertest")
-    public String testHeader(ModelMap model, @RequestHeader(value = "accept-language", required = false) String headerValue){
+    public String testHeader(ModelMap model, @RequestHeader(value = "accept-language", required = false) String headerValue)
+    {
         logger.info("HomeController::testHeader, accept-language={}", headerValue);
         model.addAttribute("message", "This is Java configuration case sample");
         return BASE_URL;
     }
 
     @GetMapping("/requestMapping/*/regx")
-    public String testRequestRegexStyle() {
+    public String testRequestRegexStyle()
+    {
         logger.info("testRequestRegexStyle access");
         return BASE_URL;
     }
 
     @GetMapping("/path/{username}/age/{age}")
-    public String testPathVariable(@PathVariable String username, @PathVariable String age) {
+    public String testPathVariable(@PathVariable String username, @PathVariable String age)
+    {
         logger.info("HomeController::testPathVariable username = {}, age = {}", username, age);
         return BASE_URL;
     }
 
     @GetMapping("/cookieValue")
-    public String testCookieValue(@CookieValue(value = "JSESSIONID", required = false) String cookieValue) {
+    public String testCookieValue(@CookieValue(value = "JSESSIONID", required = false) String cookieValue)
+    {
         logger.info("HomeController::testCookieValue cookieValue = {}", cookieValue);
         return BASE_URL;
     }
