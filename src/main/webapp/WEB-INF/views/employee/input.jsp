@@ -27,7 +27,8 @@
 <div class="container">
     <a href="<%=basePath%>/employee">Back to Employee CRUD index page</a><br/><br/><br/>
 
-    <form:form action="employee/save" method="post" modelAttribute="employee">
+    <form:form action="${employee.id == null? 'employee/save':'employee/update'}"
+               method="post" modelAttribute="employee">
         <table class="table table-striped table-bordered">
             <c:if test="${employee.id == null}">
             <tr>
@@ -74,7 +75,6 @@
                     <input type="submit" value="Submit" class="btn btn-primary">
                     <c:if test="${employee.id != null}">
                         <form:hidden path="id" />
-                        <input type="hidden" name="_method" value="PUT" />
                     </c:if>
                 </td>
             </tr>

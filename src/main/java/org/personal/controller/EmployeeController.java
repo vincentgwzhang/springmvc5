@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -67,7 +66,7 @@ public class EmployeeController
     }
 
     @GetMapping(value = "{id}")
-    @EmployeeAction(ACTION_TYPE= ActionType.SELECT)
+    @EmployeeAction(ACTION_TYPE = ActionType.SELECT)
     public String getEmployee(@PathVariable("id") Integer id, Map<String, Object> map)
     {
         logger.info("EmployeeController::getEmployee");
@@ -76,7 +75,7 @@ public class EmployeeController
     }
 
     @DeleteMapping(value = "/{id}")
-    @EmployeeAction(ACTION_TYPE= ActionType.DELETE)
+    @EmployeeAction(ACTION_TYPE = ActionType.DELETE)
     public String deleteEmployee(@PathVariable("id") Integer id)
     {
         logger.info("EmployeeController::deleteEmployee, deleteEmployee = {}", id);
@@ -84,18 +83,29 @@ public class EmployeeController
         return "redirect:/employee/get";
     }
 
-    @PutMapping("save")
-    @EmployeeAction(ACTION_TYPE= ActionType.UPDATE)
-    public String updateEmployee(@Valid Employee employee)
+    @PostMapping("update")
+    @EmployeeAction(ACTION_TYPE = ActionType.UPDATE)
+    public String updateEmployee(@Valid Employee employee, Errors result, Map<String, Object> map)
     {
         logger.info("EmployeeController::updateEmployee employee = {}", employee);
+
+        if (result.getErrorCount() > 0)
+        {
+            logger.warn("EmployeeController::save, submit form has error");
+            for (FieldError error : result.getFieldErrors())
+            {
+                logger.warn("EmployeeController::save, error field = {}, error message = {}", error.getField(), error.getDefaultMessage());
+            }
+            return INSERT_PAGE;
+        }
+
         employeeDao.save(employee);
 
         return "redirect:" + BASE_PATH + "/get";
     }
 
     @PostMapping(value = "save")
-    @EmployeeAction(ACTION_TYPE= ActionType.CREATE)
+    @EmployeeAction(ACTION_TYPE = ActionType.CREATE)
     public String saveEmployee(@Valid Employee employee, Errors result, Map<String, Object> map)
     {
         logger.info("EmployeeController::saveEmployee, employee = {}", employee);

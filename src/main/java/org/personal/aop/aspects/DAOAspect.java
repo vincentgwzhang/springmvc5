@@ -19,17 +19,20 @@ public class DAOAspect
     @Pointcut("within(org.personal.data.employee.dao.*Dao)")
     private void findAllDBDAO() {}
 
-    @Pointcut("@annotation(org.personal.aop.annotations.DBOperation)")
-    private void findAllDBOpertion() {}
+    @Pointcut("execution(@org.personal.aop.annotations.DBOperation(isReadOperation=true) * org.personal.data.employee.dao.*.*(..))")
+    private void findAllReadDBOpertion() {}
 
-    @Before("findAllDBDAO() && findAllDBOpertion()")
+    @Pointcut("execution(@org.personal.aop.annotations.DBOperation(isReadOperation=false) * org.personal.data.employee.dao.*.*(..))")
+    private void findAllWriteDBOpertion() {}
+
+    @Before("findAllDBDAO() && (findAllReadDBOpertion() || findAllWriteDBOpertion())")
     public void logDBOperation(final JoinPoint joinPoint) {
         final String className = joinPoint.getSignature().getDeclaringTypeName();
         final String functionName = joinPoint.getSignature().getName();
         logger.info("Execute DAO class = {}, function name = {}", className, functionName);
     }
 
-    @Around("findAllDBDAO() && findAllDBOpertion()")
+    @Around("findAllDBDAO() && (findAllReadDBOpertion() || findAllWriteDBOpertion())")
     public Object checkSpendTime(final ProceedingJoinPoint joinPoint) throws Throwable
     {
         long startTime = System.nanoTime();
