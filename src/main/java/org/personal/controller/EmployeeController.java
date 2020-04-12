@@ -2,6 +2,8 @@ package org.personal.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.personal.aop.annotations.ActionType;
+import org.personal.aop.annotations.EmployeeAction;
 import org.personal.data.employee.dao.DepartmentDao;
 import org.personal.data.employee.dao.EmployeeDao;
 import org.personal.data.employee.entity.Employee;
@@ -65,6 +67,7 @@ public class EmployeeController
     }
 
     @GetMapping(value = "{id}")
+    @EmployeeAction(ACTION_TYPE= ActionType.SELECT)
     public String getEmployee(@PathVariable("id") Integer id, Map<String, Object> map)
     {
         logger.info("EmployeeController::getEmployee");
@@ -73,6 +76,7 @@ public class EmployeeController
     }
 
     @DeleteMapping(value = "/{id}")
+    @EmployeeAction(ACTION_TYPE= ActionType.DELETE)
     public String deleteEmployee(@PathVariable("id") Integer id)
     {
         logger.info("EmployeeController::deleteEmployee, deleteEmployee = {}", id);
@@ -81,6 +85,7 @@ public class EmployeeController
     }
 
     @PutMapping("save")
+    @EmployeeAction(ACTION_TYPE= ActionType.UPDATE)
     public String updateEmployee(@Valid Employee employee)
     {
         logger.info("EmployeeController::updateEmployee employee = {}", employee);
@@ -90,6 +95,7 @@ public class EmployeeController
     }
 
     @PostMapping(value = "save")
+    @EmployeeAction(ACTION_TYPE= ActionType.CREATE)
     public String saveEmployee(@Valid Employee employee, Errors result, Map<String, Object> map)
     {
         logger.info("EmployeeController::saveEmployee, employee = {}", employee);

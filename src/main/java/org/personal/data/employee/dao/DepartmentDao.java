@@ -3,6 +3,7 @@ package org.personal.data.employee.dao;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import org.personal.aop.annotations.DBOperation;
 import org.personal.data.employee.entity.Department;
 import org.springframework.stereotype.Repository;
 
@@ -23,11 +24,13 @@ public class DepartmentDao
         departments.put(105, new Department(105, "D-EE"));
     }
 
+    @DBOperation
     public Collection<Department> getDepartments()
     {
         return departments.values();
     }
 
+    @DBOperation
     public Department getDepartment(Integer id)
     {
         return departments.get(id);

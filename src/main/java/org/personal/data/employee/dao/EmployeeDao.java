@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.personal.aop.annotations.DBOperation;
 import org.personal.data.employee.entity.Department;
 import org.personal.data.employee.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class EmployeeDao {
 	}
 	
 	private static Integer initId = 1006;
-	
+
+	@DBOperation(isReadOperation=false)
 	public void save(Employee employee){
 		if(employee.getId() == null){
 			employee.setId(initId++);
@@ -37,15 +39,18 @@ public class EmployeeDao {
 		employee.setDepartment(departmentDao.getDepartment(employee.getDepartment().getId()));
 		employees.put(employee.getId(), employee);
 	}
-	
+
+	@DBOperation()
 	public Collection<Employee> getAll(){
 		return employees.values();
 	}
-	
+
+	@DBOperation()
 	public Employee get(Integer id){
 		return employees.get(id);
 	}
-	
+
+	@DBOperation(isReadOperation=false)
 	public void delete(Integer id){
 		employees.remove(id);
 	}
