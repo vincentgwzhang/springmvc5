@@ -1,3 +1,5 @@
-INSERT INTO public.students (name, email, framework) VALUES ('mkyong', 'mkyong@gmail.com', 'Spring MVC, GWT');
-INSERT INTO public.students (name, email, framework) VALUES ('alex', 'alex@yahoo.com', 'Spring MVC, PLAY');
-INSERT INTO public.students (name, email, framework) VALUES ('joel', 'joel@gmail.com', 'Spring MVC, JSF 2');
+use springmvc5;
+truncate table students;
+INSERT INTO students (name, email, framework, newsletter) VALUES ('mkyong', 'mkyong@gmail.com', 'Spring MVC, GWT', 0);
+INSERT INTO students (name, email, framework, newsletter) VALUES ('alex', 'alex@yahoo.com', 'Spring MVC, PLAY', 0);
+INSERT INTO students (name, email, framework, newsletter) VALUES ('joel', 'joel@gmail.com', 'Spring MVC, JSF 2', 0);

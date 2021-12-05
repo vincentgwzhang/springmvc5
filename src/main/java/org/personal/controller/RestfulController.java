@@ -1,6 +1,9 @@
 package org.personal.controller;
 
+import org.personal.data.entity.StudentEntity;
 import org.personal.dto.RestfulEntity;
+import org.personal.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,13 +13,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("rest")
 public class RestfulController
 {
+    @Autowired
+    private StudentService studentService;
+
     @GetMapping("get")
-    public RestfulEntity getEndpoint() {
-        return new RestfulEntity("value1", "value2");
+    public List<StudentEntity> getEndpoint() {
+        return studentService.loadStudentEntities();
     }
 
     @PutMapping("put")

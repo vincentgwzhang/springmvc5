@@ -1,12 +1,17 @@
 package org.personal;
 
+import org.springframework.core.env.AbstractEnvironment;
+import org.springframework.core.env.StandardEnvironment;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.StandardServletEnvironment;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.FrameworkServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -36,6 +41,12 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         DispatcherServlet dispatcherServlet = (DispatcherServlet)super.createDispatcherServlet(servletAppContext);
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
         return dispatcherServlet;
+    }
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        servletContext.setInitParameter(StandardEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "default");
+        super.onStartup(servletContext);
     }
 
 

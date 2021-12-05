@@ -7,7 +7,7 @@ CREATE TABLE `springmvc5`.`students` (
   `newsletter` INT NULL,
   `framework` VARCHAR(500) NULL,
   `sex` VARCHAR(1) NULL,
-  `NUMBER` VARCHAR(45) NULL,
-  `COUNTRY` VARCHAR(10) NULL,
-  `SKILL` VARCHAR(500) NULL,
+  `number` VARCHAR(45) NULL,
+  `country` VARCHAR(10) NULL,
+  `skill` VARCHAR(500) NULL,
   PRIMARY KEY (`id`));

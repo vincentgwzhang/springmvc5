@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.personal.WebMvcConfig;
+import org.personal.data.entity.StudentEntity;
 import org.personal.dto.RestfulEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -40,19 +43,6 @@ public class RestfulControllerTest
     public void setUp()
     {
         this.mockMvc = webAppContextSetup(this.wac).build();
-    }
-
-    @Test
-    public void testGetEndpoint() throws Exception
-    {
-        final String requestPath = controller_url_base + "/get";
-        final RestfulEntity entity = new RestfulEntity("value1", "value2");
-        MvcResult mvcResult = this.mockMvc.perform(get(requestPath)).andReturn();
-
-        final String strJsonResult = mvcResult.getResponse().getContentAsString();
-        ObjectMapper objectMapper = new ObjectMapper();
-        RestfulEntity restfulEntity = objectMapper.readValue(strJsonResult, RestfulEntity.class);
-        assertThat(restfulEntity, Matchers.equalTo(entity));
     }
 
     @Test

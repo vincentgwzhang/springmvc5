@@ -4,8 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import javax.validation.ConstraintViolationException;
 
 /**
  * #错误解决#
@@ -44,6 +47,24 @@ public class SystemExceptionHandler
     {
         logger.info("ExceptionController::handleNoHandlerFoundException, exception = {}", ex.getMessage());
         ModelAndView modelAndView = new ModelAndView("404");
+        modelAndView.addObject("ex", ex);
+        return modelAndView;
+    }
+
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    public ModelAndView handleMethodArgumentTypeMismatchException(final MethodArgumentTypeMismatchException ex)
+    {
+        logger.info("ExceptionController::handleMethodArgumentTypeMismatchException, exception = {}", ex.getMessage());
+        ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("ex", ex);
+        return modelAndView;
+    }
+
+    @ExceptionHandler({ ConstraintViolationException.class })
+    public ModelAndView handleConstraintViolationException(final ConstraintViolationException ex)
+    {
+        logger.info("ExceptionController::handleConstraintViolationException, exception = {}", ex.getMessage());
+        ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("ex", ex);
         return modelAndView;
     }
