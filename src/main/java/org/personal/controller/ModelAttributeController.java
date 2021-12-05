@@ -52,14 +52,13 @@ public class ModelAttributeController
             logger.info("Load from DB, user = {}", user);
         } else {
             User user = new User();
-            user.setId(2);
-            map.put(MODEL_USER_ATTRIBUTE_NAME, user);
             logger.info("New user = {}", user);
         }
     }
 
     @PostMapping("post")
     public String updateUser(@ModelAttribute(MODEL_USER_ATTRIBUTE_NAME) User user, ModelMap modelMap) {
+        // 此时，应该判断 user 的 id 是否为 null, 为 null 则为新的 user
         logger.info("ModelAttributeController::updateUser, user = {}", user);
         return BASE_URL;
     }
