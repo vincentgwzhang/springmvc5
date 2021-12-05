@@ -14,17 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * ModelAttribute 的意思是说，例如这个 user, 它在JSP 页面的时候根本就不显示 password, 甚至 hidden 都无
- * 然后由于传回来的时候有个id, 而这个 id 马上被 loadUser 获取到，然后从数据库获取到一个 db-user
- * 然后这个 db-user 就会被 updateUser 函数里面的 user 覆盖，所以到最后， password 实质上仍然是从数据库获取到，但是缺无法修改
+ * ModelAttribute 使用场景：
+ * 如果 user 是更新的话，如果其中有一个字段不能被修改，所以表单保存这个字段
  *
- * ModelAttribute有时候会和SessionAttributes混淆并产生异常。例如，
- * 1, 当目标方法，updateUser, 使用了 @ModelAttribute参数，
- * 2, 然后没有 @ModelAttribute所标注的方法或者即使标注了， 所标注的方法没有 updateUser 所要求的 key 输入到 map 中，例如，没有这句：  map.put(MODEL_USER_ATTRIBUTE_NAME, user);
- * 3, 然后，这里又有SessionAttributes的说话，就会去sessionAttributes 去找。如果还是找不到，那么就抛出异常。
- *
- * 为什么呢？因为根据 SessionAttributes 的特性，它会自动捕捉 map 曾经注入过的 key
- *
+ * 下面是一个测试：
+ * 1, 输入 http://localhost:22900/test/modelAttribute?id=1
+ * 2, 此时，loadUser() 函数运行，并且模拟从数据库获取 user (因为此时 request parameter id = 1)
+ * 3, 在表单处是没有 password 和 address 输入的
+ * 4, 当点击 post 的时候，该 ModelAttributeController 首先依然运行 loadUser() 函数
+ * 5, 然后再结合表单传回来的 user (表单的 user 传回来的时候 password 和 address为 null)
+ * 6, 所以最后 password 和 address 并没有为 null
  */
 @RequestMapping("modelAttribute")
 @Controller
@@ -51,21 +50,17 @@ public class ModelAttributeController
             User user = newUser();
             map.put(MODEL_USER_ATTRIBUTE_NAME, user);//注意，这里默认应该是 user
             logger.info("Load from DB, user = {}", user);
+        } else {
+            User user = new User();
+            user.setId(2);
+            map.put(MODEL_USER_ATTRIBUTE_NAME, user);
+            logger.info("New user = {}", user);
         }
-    }
-
-    /**
-     * 由 ModelAttribute 标记的方法，会在每个endpoint 执行前调用
-     */
-    @ModelAttribute
-    public void executeBeforeMethod() {
-        logger.info("ModelAttributeController::executeBeforeMethod");
     }
 
     @PostMapping("post")
     public String updateUser(@ModelAttribute(MODEL_USER_ATTRIBUTE_NAME) User user, ModelMap modelMap) {
         logger.info("ModelAttributeController::updateUser, user = {}", user);
-        logger.info("ModelAttributeController::updateUser, modelMap has key = {}", modelMap.containsKey(MODEL_USER_ATTRIBUTE_NAME));
         return BASE_URL;
     }
 

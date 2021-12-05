@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -16,13 +17,13 @@
 <body>
 <a href="<%=basePath%>">Back to home</a><br /><br /><br />
 
-<form action="modelAttribute/post" method="post">
-    <input type="hidden" name="id" value="1">
-    username: <input type="text" name="username" value="tom" /><br />
-    email: <input type="text" name="email" value="tom@atguigu.com" /><br />
-    age: <input type="text" name="age" value="12" /><br />
+<form:form action="modelAttribute/post" method="post" modelAttribute="userKey">
+    <form:hidden path="id" />
+    username: <form:input path="username" /><br />
+    email: <form:input path="email" /><br />
+    age: <form:input path="age" /><br />
     <input type="submit" value="Test Model Attribute" />
-</form>
+</form:form>
 
 </body>
 </html>
