@@ -19,7 +19,7 @@
 <ul>
     <li><a href="home/default">default</a></li>
     <li><a href="home/link">link</a></li>
-    <li><a href="home/parametertest?username=vincent&age=37">Vincent</a></li>
+    <li><a href="home/parametertest?username=vincent&age=37">parametertest</a></li>
     <li><a href="home/requestMapping/!@$&*(()_+/regx">Regex Mapping</a></li>
     <li><a href="home/path/vincent/age/37">Test path variable</a></li>
     <li><a href="home/headertest">Header test</a></li>

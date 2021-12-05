@@ -1,0 +1,13 @@
+version: '2'
+services:
+  sub_db:
+    container_name: MYSQL
+    image: mysql:latest
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: springmvc5
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1q2w3e4R

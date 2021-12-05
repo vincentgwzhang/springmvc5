@@ -1,15 +1,12 @@
 package org.personal.system.metrics;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
-
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.Counter;
 import com.codahale.metrics.MetricRegistry;
+
+import java.util.Queue;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class CounterTest {
 
