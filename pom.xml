@@ -19,7 +19,7 @@
 
         <!--tools-->
         <HikariCP.version>5.0.0</HikariCP.version>
-        <hibernate-validation>6.0.15.Final</hibernate-validation>
+        <hibernate-validation>6.0.20.Final</hibernate-validation>
         <hibernate.core.version>5.4.13.Final</hibernate.core.version>
         <jackson.version>2.10.3</jackson.version>
         <joda-time.version>2.10.5</joda-time.version>
