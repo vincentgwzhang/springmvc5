@@ -21,7 +21,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -37,7 +36,7 @@ public class HomeControllerTest
 
     private MockMvc mockMvc;
 
-    private String controller_url_base = "/home";
+    private final String controller_url_base = "/home";
 
     @BeforeEach
     public void setUp()
@@ -50,7 +49,7 @@ public class HomeControllerTest
     {
         ServletContext servletContext = wac.getServletContext();
 
-        assertEquals(servletContext, Matchers.notNullValue());
+        assertThat(servletContext, Matchers.notNullValue());
         assertTrue(servletContext instanceof MockServletContext);
         assertThat(wac.getBean("homeController"), Matchers.notNullValue());
     }

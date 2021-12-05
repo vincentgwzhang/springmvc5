@@ -27,7 +27,7 @@ public class RedirectControllerTest
 
     private MockMvc mockMvc;
 
-    private String controller_url_base = "/redirect";
+    private final String controller_url_base = "/redirect";
 
     @BeforeEach
     public void setUp()
@@ -40,6 +40,7 @@ public class RedirectControllerTest
     {
         final String requestPath = controller_url_base + "/testRedirect";
         MvcResult mvcResult = this.mockMvc.perform(get(requestPath)).andReturn();
+        assertThat(mvcResult.getModelAndView(), Matchers.notNullValue());
         assertThat(mvcResult.getModelAndView().getViewName(), Matchers.equalTo("redirect:/redirect/commonView"));
     }
 
@@ -48,6 +49,7 @@ public class RedirectControllerTest
     {
         final String requestPath = controller_url_base + "/testForward";
         MvcResult mvcResult = this.mockMvc.perform(get(requestPath)).andReturn();
+        assertThat(mvcResult.getModelAndView(), Matchers.notNullValue());
         assertThat(mvcResult.getModelAndView().getViewName(), Matchers.equalTo("forward:/redirect/commonView"));
     }
 }

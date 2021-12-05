@@ -34,7 +34,7 @@ public class RestfulControllerTest
 
     private MockMvc mockMvc;
 
-    private String controller_url_base = "/rest";
+    private final String controller_url_base = "/rest";
 
     @BeforeEach
     public void setUp()

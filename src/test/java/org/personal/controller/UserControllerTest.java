@@ -31,7 +31,7 @@ public class UserControllerTest
 
     private MockMvc mockMvc;
 
-    private String controller_url_base = "/user";
+    private final String controller_url_base = "/user";
 
     @BeforeEach
     public void setUp()
@@ -44,6 +44,7 @@ public class UserControllerTest
     {
         User user = newUser();
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilderUtils.postForm(controller_url_base + "/post", user)).andReturn();
+        assertThat(mvcResult.getModelAndView(), Matchers.notNullValue());
         assertThat(mvcResult.getModelAndView().getViewName(), Matchers.equalTo("user"));
     }
 
@@ -63,6 +64,7 @@ public class UserControllerTest
                         .param("address.province", "province")
                 )
                 .andReturn();
+        assertThat(mvcResult.getModelAndView(), Matchers.notNullValue());
         assertThat(mvcResult.getModelAndView().getViewName(), Matchers.equalTo("user"));
         User modelUser = (User)mvcResult.getModelAndView().getModelMap().getAttribute("userAttribute");
         assertThat(modelUser, Matchers.equalTo(user));
