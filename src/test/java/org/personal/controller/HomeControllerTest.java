@@ -20,8 +20,9 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -49,7 +50,7 @@ public class HomeControllerTest
     {
         ServletContext servletContext = wac.getServletContext();
 
-        assertThat(servletContext, Matchers.notNullValue());
+        assertEquals(servletContext, Matchers.notNullValue());
         assertTrue(servletContext instanceof MockServletContext);
         assertThat(wac.getBean("homeController"), Matchers.notNullValue());
     }
