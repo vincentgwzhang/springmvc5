@@ -25,7 +25,7 @@
 </head>
 <body>
 <div class="container">
-    <a href="<%=basePath%>/employee">Back to Employee CRUD index page</a><br/><br/><br/>
+    <a href="<%=basePath%>employee">Back to Employee CRUD index page</a><br/><br/><br/>
 
     <form:form action="${employee.id == null? 'employee/save':'employee/update'}"
                method="post" modelAttribute="employee">

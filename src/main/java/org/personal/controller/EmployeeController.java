@@ -27,13 +27,17 @@ import javax.validation.Valid;
 @Controller
 public class EmployeeController
 {
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private static final String BASE_PATH = "/employee";
+    private static final String BASE_PATH = "employee";
 
     private static final String INSERT_PAGE = BASE_PATH + "/input";
 
     private static final String LIST_PAGE = BASE_PATH + "/list";
+
+    private static final String INDEX_PAGE = BASE_PATH + "/index";
+
+    private static final String REDIRECT_GET = "redirect:/employee/get";
 
     @Autowired
     private EmployeeDao employeeDao;
@@ -65,6 +69,9 @@ public class EmployeeController
         map.put("genders", genders);
     }
 
+    /**
+     * Redirect to id edit page
+     */
     @GetMapping(value = "{id}")
     @EmployeeAction(ACTION_TYPE = ActionType.SELECT)
     public String getEmployee(@PathVariable("id") Integer id, Map<String, Object> map)
@@ -80,7 +87,7 @@ public class EmployeeController
     {
         logger.info("EmployeeController::deleteEmployee, deleteEmployee = {}", id);
         employeeDao.delete(id);
-        return "redirect:/employee/get";
+        return REDIRECT_GET;
     }
 
     @PostMapping("update")
@@ -100,10 +107,12 @@ public class EmployeeController
         }
 
         employeeDao.save(employee);
-
-        return "redirect:" + BASE_PATH + "/get";
+        return REDIRECT_GET;
     }
 
+    /**
+     * Create employee page action
+     */
     @PostMapping(value = "save")
     @EmployeeAction(ACTION_TYPE = ActionType.CREATE)
     public String saveEmployee(@Valid Employee employee, Errors result, Map<String, Object> map)
@@ -121,9 +130,12 @@ public class EmployeeController
         }
 
         employeeDao.save(employee);
-        return "redirect:/employee/get";
+        return REDIRECT_GET;
     }
 
+    /**
+     * Redirect to create jsp page
+     */
     @GetMapping(value = "/create")
     public String createEmployee(Map<String, Object> map)
     {
@@ -132,6 +144,9 @@ public class EmployeeController
         return INSERT_PAGE;
     }
 
+    /**
+     * Redirect to employees page
+     */
     @GetMapping("/get")
     public String listEmployees(Map<String, Object> map)
     {
@@ -140,10 +155,13 @@ public class EmployeeController
         return LIST_PAGE;
     }
 
+    /**
+     * Redirect to total page
+     */
     @GetMapping
     public String index()
     {
-        return BASE_PATH + "/index";
+        return INDEX_PAGE;
     }
 
     //	@InitBinder
