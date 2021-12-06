@@ -29,15 +29,15 @@ public class EmployeeController
 {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private static final String BASE_PATH = "employee";
+    public static final String BASE_PATH = "employee";
 
-    private static final String INSERT_PAGE = BASE_PATH + "/input";
+    public static final String INSERT_PAGE = BASE_PATH + "/input";
 
-    private static final String LIST_PAGE = BASE_PATH + "/list";
+    public static final String LIST_PAGE = BASE_PATH + "/list";
 
-    private static final String INDEX_PAGE = BASE_PATH + "/index";
+    public static final String INDEX_PAGE = BASE_PATH + "/index";
 
-    private static final String REDIRECT_GET = "redirect:/employee/get";
+    public static final String REDIRECT_GET = "redirect:/employee/get";
 
     @Autowired
     private EmployeeDao employeeDao;
