@@ -4,6 +4,7 @@ import com.codahale.metrics.Counter;
 import com.codahale.metrics.Histogram;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.Timer;
+import org.personal.metrics.config.CompareClick;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,15 +34,20 @@ public class MetricStatisticsController {
     @Autowired
     private Timer timer;
 
+    @Autowired
+    private CompareClick compareClick;
+
     @GetMapping("funA")
     public ResponseEntity<Void> callFunctionA() {
         meter1.mark();
+        compareClick.markMeter1(meter1.getCount());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("funB")
     public ResponseEntity<Void> callFunctionB() {
         meter2.mark();
+        compareClick.markMeter2(meter2.getCount());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -8,6 +8,9 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.RatioGauge;
 import com.codahale.metrics.Timer;
 import com.codahale.metrics.jmx.JmxReporter;
+import com.influxdb.client.InfluxDBClient;
+import com.influxdb.client.InfluxDBClientFactory;
+import com.influxdb.client.WriteApiBlocking;
 import org.personal.metrics.reporter.InfluxDBReporter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,26 +60,10 @@ public class MetricConfiguration {
     }
 
     @Bean
-    public CompareClick compareClick(MetricRegistry metrics, Meter meter1, Meter meter2) {
-        CompareClick compareClick = new CompareClick(meter1, meter2);
+    public CompareClick compareClick(MetricRegistry metrics) {
+        CompareClick compareClick = new CompareClick();
         metrics.register("compareClick", compareClick);
         return compareClick;
-    }
-
-    private static class CompareClick extends RatioGauge {
-
-        private final Meter meter1;
-        private final Meter meter2;
-
-        public CompareClick(Meter meter1, Meter meter2) {
-            this.meter1 = meter1;
-            this.meter2 = meter2;
-        }
-
-        @Override
-        protected Ratio getRatio() {
-            return Ratio.of(meter1.getOneMinuteRate(), meter2.getOneMinuteRate());
-        }
     }
 
     //@Bean
@@ -90,10 +77,17 @@ public class MetricConfiguration {
     }
 
     @Bean
-    public InfluxDBReporter influxDBReporter(MetricRegistry metricRegistry) {
+    public WriteApiBlocking writeApi() {
+        InfluxDBClient influxDBClient = InfluxDBClientFactory.create();
+        return influxDBClient.getWriteApiBlocking();
+    }
+
+    @Bean
+    public InfluxDBReporter influxDBReporter(MetricRegistry metricRegistry, WriteApiBlocking writeApi) {
         InfluxDBReporter reporter = InfluxDBReporter.forRegistry(metricRegistry)
                 .convertRatesTo(TimeUnit.SECONDS)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
+                .writerAPI(writeApi)
                 .build();
         reporter.start(10, TimeUnit.SECONDS);
         return reporter;
