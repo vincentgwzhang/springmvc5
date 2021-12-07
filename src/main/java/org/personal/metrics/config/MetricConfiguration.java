@@ -1,4 +1,4 @@
-package org.personal.config;
+package org.personal.metrics.config;
 
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.Counter;
@@ -8,6 +8,7 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.RatioGauge;
 import com.codahale.metrics.Timer;
 import com.codahale.metrics.jmx.JmxReporter;
+import org.personal.metrics.reporter.InfluxDBReporter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -78,9 +79,19 @@ public class MetricConfiguration {
         }
     }
 
-    @Bean
+    //@Bean
     public ConsoleReporter consoleReporter(MetricRegistry metricRegistry) {
         ConsoleReporter reporter = ConsoleReporter.forRegistry(metricRegistry)
+                .convertRatesTo(TimeUnit.SECONDS)
+                .convertDurationsTo(TimeUnit.MILLISECONDS)
+                .build();
+        reporter.start(10, TimeUnit.SECONDS);
+        return reporter;
+    }
+
+    @Bean
+    public InfluxDBReporter influxDBReporter(MetricRegistry metricRegistry) {
+        InfluxDBReporter reporter = InfluxDBReporter.forRegistry(metricRegistry)
                 .convertRatesTo(TimeUnit.SECONDS)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .build();
