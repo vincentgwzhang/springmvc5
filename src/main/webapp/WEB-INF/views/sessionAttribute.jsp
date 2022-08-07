@@ -23,6 +23,6 @@
 Request Scope: ${requestScope.user}<br />
 Session Scope: ${sessionScope.user}<br />
 Session School: ${sessionScope.school}<br />
-
+Request Scope: ${requestScope.user.email}<br />
 </body>
 </html>

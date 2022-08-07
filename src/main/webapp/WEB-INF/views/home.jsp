@@ -26,5 +26,7 @@
     <li><a href="home/cookieValue">Cookie test</a></li>
 </ul>
 
+<p>message from controller: [${message}]</p>
+
 </body>
 </html>

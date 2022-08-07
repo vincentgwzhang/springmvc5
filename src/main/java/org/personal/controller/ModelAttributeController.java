@@ -45,13 +45,14 @@ public class ModelAttributeController
      * 由 ModelAttribute 标记的方法，会在每个endpoint 执行前调用
      */
     @ModelAttribute
-    public void loadUser(@RequestParam(value = "id", required = false) Integer id, Map<String, Object> map) {
+    public void loadUser(@RequestParam(value = "id", required = false) Integer id, Map<String, User> map) {
         if (id != null) {
             User user = newUser();
             map.put(MODEL_USER_ATTRIBUTE_NAME, user);//注意，这里默认应该是 user
             logger.info("Load from DB, user = {}", user);
         } else {
             User user = new User();
+            map.put(MODEL_USER_ATTRIBUTE_NAME, user);//注意，这里默认应该是 user
             logger.info("New user = {}", user);
         }
     }

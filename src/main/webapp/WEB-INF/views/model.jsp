@@ -23,6 +23,7 @@
     <li><a href="model/model">model</a></li>
 </ul>
 
-${requestScope.time}
+${requestScope.time}<br />
+${time}
 </body>
 </html>
